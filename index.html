@@ -15,7 +15,7 @@
             height: 100vh;
             overflow: hidden;
             display: flex;
-            flex-direction: column; /* Cambiado a column para centrar verticalmente mejor */
+            flex-direction: column; /* Centrar verticalmente */
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -23,18 +23,19 @@
 
         /* === CONTENEDOR PRINCIPAL === */
         .container {
-            max-width: 600px;
+            max-width: 600px; /* Ancho máximo para escritorio */
+            width: 90%; /* Ocupa el 90% del ancho en pantallas más pequeñas */
             padding: 20px;
-            display: flex; /* Flexbox para organizar elementos internos */
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            flex-grow: 1; /* Permite que el contenedor principal ocupe espacio */
+            flex-grow: 1;
         }
 
         /* === TÍTULO "LEGION CALIENTE" === */
         .title {
-            font-size: 2.5rem;
+            font-size: 2.5rem; /* Tamaño de fuente para escritorio */
             margin-bottom: 2rem;
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -101,7 +102,6 @@
             animation: blur-text 1.5s infinite linear alternate;
         }
 
-        /* Aplicar animación individualmente para un efecto escalonado */
         .loading-text-words:nth-child(1) { animation-delay: 0s; }
         .loading-text-words:nth-child(2) { animation-delay: 0.1s; }
         .loading-text-words:nth-child(3) { animation-delay: 0.2s; }
@@ -121,11 +121,11 @@
             100% { filter: blur(3px); opacity: 0.5; }
         }
 
-        /* === Estilos para el mensaje y el CAPTCHA box (NUEVO) === */
+        /* === Estilos para el mensaje y el CAPTCHA box === */
         .challenge-message {
             font-size: 1.2rem;
-            margin-top: 2rem; /* Espacio después del texto de carga */
-            margin-bottom: 1.5rem; /* Espacio antes del CAPTCHA */
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
             color: #fff;
         }
 
@@ -133,33 +133,84 @@
         #cf-content,
         #challenge-form,
         #cf-please-wait {
-            display: block !important; /* Anula cualquier display: none */
-            visibility: visible !important; /* Anula cualquier visibility: hidden */
-            margin: 20px auto; /* Centra el contenido */
+            display: block !important;
+            visibility: visible !important;
+            margin: 20px auto;
         }
 
-        /* Centrar el contenido dentro de #cf-challenge-form si es necesario */
         #cf-challenge-form {
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column; /* Si el captcha tiene múltiples elementos */
+            flex-direction: column;
         }
-        
-        /* Ajustes para el CAPTCHA en sí para que no sea demasiado ancho */
+
+        /* Escalar el reCAPTCHA para que se ajuste a pantallas más pequeñas */
         .g-recaptcha {
             transform-origin: center center;
-            transform: scale(0.9); /* Ajusta el tamaño si es necesario */
+            transform: scale(0.9); /* Tamaño por defecto para pantallas grandes/medias */
             -webkit-transform: scale(0.9);
             margin: 0 auto;
         }
 
         /* === ELEMENTOS CLOUDFLARE (NO MODIFICAR SUS IDs/Clases) === */
-        /* Asegurarse de que estos elementos Cloudflare no se muestren */
         #challenge-error-title,
         #challenge-error-text {
             display: none !important;
         }
+
+        /* === MEDIA QUERIES PARA RESPONSIVE === */
+
+        /* Para pantallas más pequeñas que 768px (tablets y móviles) */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.8rem; /* Título más pequeño */
+                margin-bottom: 1.5rem;
+            }
+
+            .loading-text {
+                font-size: 1.2rem; /* Texto de carga más pequeño */
+                margin: 1rem 0;
+            }
+
+            .challenge-message {
+                font-size: 1rem; /* Mensaje más pequeño */
+                margin-top: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .g-recaptcha {
+                transform: scale(0.77); /* Escalar el CAPTCHA aún más en móviles */
+                -webkit-transform: scale(0.77);
+                /* Ajustar el ancho del contenedor si el escalado hace que sobresalga */
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+            /* Asegurarse de que el contenedor principal se adapte */
+            .container {
+                padding: 15px;
+            }
+        }
+
+        /* Para pantallas muy pequeñas (móviles) */
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.5rem;
+                letter-spacing: 2px;
+            }
+            .loading-text {
+                font-size: 1rem;
+            }
+            .challenge-message {
+                font-size: 0.9rem;
+            }
+            .g-recaptcha {
+                transform: scale(0.7); /* Puede que necesite ajustarse más */
+                -webkit-transform: scale(0.7);
+            }
+        }
+
     </style>
     <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700&display=swap" rel="stylesheet">
 </head>
